@@ -1,0 +1,64 @@
+_format_version: "3.0"
+consumers:
+- tags:
+  - v
+  - booking-service
+  username: jsmith
+- tags:
+  - v
+  - booking-service
+  username: jdoe
+plugins:
+- config:
+    day: 10000
+    hour: 1000
+    minute: 100
+  name: rate-limiting
+  tags:
+  - v
+  - booking-service
+- config:
+    key_names:
+    - apikey
+  name: key-auth
+  service: booking-service
+  tags:
+  - v
+  - booking-service
+services:
+- host: api.kong-air.com
+  id: c89d5f47-9e4a-553a-910e-ff1a78bb3015
+  name: booking-service
+  path: /
+  plugins: []
+  port: 443
+  protocol: https
+  routes:
+  - id: f63684ac-f2a9-5c18-b9be-85bf70b3f1ae
+    methods:
+    - GET
+    name: booking-service_bookings_list-bookings
+    paths:
+    - ~/bookings$
+    plugins: []
+    regex_priority: 200
+    strip_path: false
+    tags:
+    - v
+    - booking-service
+  - id: 21ca3544-a0a5-527f-9c0a-5c5387fa2532
+    methods:
+    - POST
+    name: booking-service_bookings_create-booking
+    paths:
+    - ~/bookings$
+    plugins: []
+    regex_priority: 200
+    strip_path: false
+    tags:
+    - v
+    - booking-service
+  tags:
+  - v
+  - booking-service
+upstreams: []

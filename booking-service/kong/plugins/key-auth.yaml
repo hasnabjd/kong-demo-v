@@ -1,5 +1,6 @@
-name: key-auth
-service: booking-service
-config:
-  key_names:
-  - apikey
+plugins:
+- name: key-auth
+  service: booking-service
+  config:
+    key_names:
+    - apikey
